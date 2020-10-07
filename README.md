@@ -9,6 +9,7 @@ In this repository, I will explain design patterns, object oriented programming 
    - [Object Oriented Programming Concepts](#object-oriented-programming-concepts)
      - [Encapsulation](#encapsulation)
      - [Abstraction](#abstraction)
+     - [Inheritance](#inheritance)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -77,6 +78,62 @@ interface InterfaceExample {
     fun methodOne()
     fun methodTwo()
 }
+```
+
+#### Inheritance
+Inheritance means that one class acquires the attributes and methods of another class. That means, we can create new classes over existing classes.<br/>
+Main purpose of inheritance is to provide the reusability of code. So, a class has to write only the unique attributes and methods. Rest of the common attributes and methods can be extended from the another class.<br/>
+Here, two new terms come up. Parent class and child class.
+- <b>Parent Class:</b> This the class whose attributes and methods will be using by child class.
+- <b>Child Class:</b> This is class that extends the features of parent class.
+
+<b>Note:</b> If we want to create extendable class (parent class) in Kotlin, we should add 'open' keyword before 'class' keyword. Otherwise, we can't extend this class from other classes. As same with classes, if we want to override a method in child class, we should add 'open' keyword before 'fun' keyword in parent class.
+```kotlin
+open class InheritanceParentClass{
+    var attributeParentClass1 = "Attribute in Parent Class"
+    private var attributeParentClass2 = "We can't reach this attribute in child class. Because we defined it as private"
+
+    fun methodParentClass1() = "This is first method in InheritanceParentClass"
+
+    open fun methodParentClass2() = "This is second method in InheritanceParentClass. We will override this one."
+}
+```
+As we learnt in Encapsulation section, we can't reach attributes or methods in child class, which have defined as private in parent class. So if we want them to usable in child class, we shouldn't add private keyword.
+```kotlin
+class InheritanceChildClass: InheritanceParentClass() {
+    fun methodChildClass1() = "This is first method in InheritanceParentClass"
+
+    override fun methodParentClass2() = "This method has overridden in child class"
+
+    fun printAttributeParentClass1(){
+        println("$attributeParentClass1")
+        attributeParentClass1 = "Attribute in Child Class"
+        println("$attributeParentClass1")
+    }
+}
+```
+I will give very basic main method to print these methods
+```kotlin
+fun main(){
+    var parentClass = InheritanceParentClass()
+    var childClass = InheritanceChildClass()
+
+    println("Parent Class - methodParentClass1: ${parentClass.methodParentClass1()}")
+    println("Parent Class - methodParentClass2: ${parentClass.methodParentClass2()}")
+
+    println("Child Class - methodChildClass1: ${childClass.methodChildClass1()}")
+    println("Child Class - methodParentClass2: ${childClass.methodParentClass2()}")
+    childClass.printAttributeParentClass1()
+}
+```
+<b>Output</b>
+```
+Parent Class - methodParentClass1: This is first method in InheritanceParentClass
+Parent Class - methodParentClass2: This is second method in InheritanceParentClass. We will override this one.
+Child Class - methodChildClass1: This is first method in InheritanceParentClass
+Child Class - methodParentClass2: This method has overridden in child class
+Attribute in Parent Class
+Attribute in Child Class
 ```
 
 ## License
