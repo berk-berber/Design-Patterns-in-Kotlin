@@ -10,6 +10,7 @@ In this repository, I will explain design patterns, object oriented programming 
      - [Encapsulation](#encapsulation)
      - [Abstraction](#abstraction)
      - [Inheritance](#inheritance)
+     - [Polymorphism](#polymorphism)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -134,6 +135,39 @@ Child Class - methodChildClass1: This is first method in InheritanceParentClass
 Child Class - methodParentClass2: This method has overridden in child class
 Attribute in Parent Class
 Attribute in Child Class
+```
+
+#### Polymorphism
+With the help of polymorphism we can perform a single action in different ways. To do that, we need to define one interface, class or abstract class and we will have multiple implementations.<br/>
+I will give a brief example. You will see that, with the help of polymorphism, a method can perform different operations based on the object that it is acting upon.<br/><br/>
+First, we will have parent class called as 'PolymorphismBaseClass'
+```kotlin
+open abstract class PolymorphismBaseClass {
+    open fun runMobileServiceOnDevice(){
+        println("This device is not running any mobile services.")
+    }
+
+    abstract fun mobileServicesName(): String
+}
+```
+Then we can create child classes from this parent class. Our child classes will use same method. These methods will do different but similar operations.
+```kotlin
+class PolymorphismHuaweiClass: PolymorphismBaseClass() {
+    override fun runMobileServiceOnDevice() {
+        println("This device can work with Huawei Mobile Services.")
+    }
+
+    override fun mobileServicesName(): String = "Huawei Mobile Services"
+}
+```
+```kotlin
+class PolymorphismGoogleClass: PolymorphismBaseClass() {
+    override fun runMobileServiceOnDevice() {
+        println("This device can work with Google Mobile Services.")
+    }
+
+    override fun mobileServicesName(): String = "Google Mobile Services"
+}
 ```
 
 ## License
