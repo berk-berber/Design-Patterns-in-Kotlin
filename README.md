@@ -11,6 +11,7 @@ In this repository, I will explain design patterns, object oriented programming 
      - [Abstraction](#abstraction)
      - [Inheritance](#inheritance)
      - [Polymorphism](#polymorphism)
+2. [SOLID Principles](#solid-principles)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -169,6 +170,10 @@ class PolymorphismGoogleClass: PolymorphismBaseClass() {
     override fun mobileServicesName(): String = "Google Mobile Services"
 }
 ```
+
+## SOLID Principles
+In object-oriented computer programming, SOLID is design principles intended to make software more understandable, flexible and maintainable.<br/>
+SOLID helps us to write sustainable code while developing software. This means, when software requirements have changed or we want to make additions to existing software, the system won't resist this. We will add new requiremements and functions easily. In addition to these, there are reasons such as maintenance and being easy to understand.
 
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
