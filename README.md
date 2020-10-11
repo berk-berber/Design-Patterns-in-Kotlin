@@ -12,6 +12,7 @@ In this repository, I will explain design patterns, object oriented programming 
      - [Inheritance](#inheritance)
      - [Polymorphism](#polymorphism)
 2. [SOLID Principles](#solid-principles)
+   - [Single Responsibility Principle](#single-responsibility-principle)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -174,6 +175,10 @@ class PolymorphismGoogleClass: PolymorphismBaseClass() {
 ## SOLID Principles
 In object-oriented computer programming, SOLID is design principles intended to make software more understandable, flexible and maintainable.<br/>
 SOLID helps us to write sustainable code while developing software. This means, when software requirements have changed or we want to make additions to existing software, the system won't resist this. We will add new requiremements and functions easily. In addition to these, there are reasons such as maintenance and being easy to understand.
+
+### Single Responsibility Principle
+Single-responsibility principle means that every module, class or method in a computer program should have responsibility over a single part of that program's functionality.<br/>
+We shouldn't have objects which know too much and have unnecessary behavior. So, a class will do only one job. Thus, this class should have only one reason to change.
 
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
