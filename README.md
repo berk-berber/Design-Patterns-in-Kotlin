@@ -178,7 +178,42 @@ SOLID helps us to write sustainable code while developing software. This means, 
 
 ### Single Responsibility Principle
 Single-responsibility principle means that every module, class or method in a computer program should have responsibility over a single part of that program's functionality.<br/>
-We shouldn't have objects which know too much and have unnecessary behavior. So, a class will do only one job. Thus, this class should have only one reason to change.
+We shouldn't have objects which know too much and have unnecessary behavior. So, a class will do only one job. Thus, this class should have only one reason to change.<br/><br/>
+For example, let's think that we have class called as user which holds the information about user. Then we will add sign in and sign out methods for this user to manage authentication operations.
+```kotlin
+data class User(
+    var id: Long,
+    var name: String,
+    var password: String
+){
+    fun signIn(){
+        // This method will do signing in operations
+    }
 
+    fun signOut(){
+        // This method will do signing out operations
+    }
+}
+```
+But as you have learned with Single Responsibility Principle, all classes should have responsibility for a single process of a program.<br/>
+If we would like to make some changes for authentication process in sign in or sign out methods, our User class will be affected too. So, we will add more than one responsibility to one class. We shouldn't do that and we should separate our classes.<br/>
+That means, User class should do operations for only holding informations of the user. If we would like to manage authentication process of user like signing in and signing out, we should add a new class to manage authentication process.
+```kotlin
+data class User(
+    var id: Long,
+    var name: String,
+    var password: String
+)
+
+class AuthenticationService(){
+    fun signIn(){
+        // This method will do signing in operations
+    }
+
+    fun signOut(){
+        // This method will do signing out operations
+    }
+}
+```
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
