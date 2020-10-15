@@ -13,6 +13,7 @@ In this repository, I will explain design patterns, object oriented programming 
      - [Polymorphism](#polymorphism)
 2. [SOLID Principles](#solid-principles)
    - [Single Responsibility Principle](#single-responsibility-principle)
+   - [Open-Closed Principle](#open-closed-principle)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -215,5 +216,53 @@ class AuthenticationService(){
     }
 }
 ```
+
+### Open-Closed Principle
+There are two different important meanings for this principle.
+- <b>Open:</b> Means that we can add new features to class. When there are some changes on our dependencies, we should be able to add new features to our class easily
+- <b>Closed:</b> Means that base features of class shouldn't be able to change
+Let's imagine that we have a MobilePhoneUser class which is holding mobile phone and mobile services. This class will do operations for users' mobile phones by working with mobile services. And there are 2 different mobile services(HMS and GMS)
+```kotlin
+class MobilePhone{
+    lateinit var brandName: String
+}
+
+class MobilePhoneUser{
+    fun runMobileDevice(mobileServices: Any, mobilePhone: MobilePhone){
+        if(mobileServices is HuaweiMobileServices)
+            println("This device is running with Huawei Mobile Services")
+    }
+}
+
+class HuaweiMobileServices{
+    fun addMobileServiceToPhone(mobilePhone: MobilePhone){ println("Huawei Mobile Services") }
+}
+```
+In the above code, we are checking mobile service type with if-else condition. This is a bad example, because when we want to add new mobile services, we will always need to check mobile services with if-else conditions.<br/>
+According to Open-Closed Principle, we should add one interface for all mobile services. Then, each mobile service types will implement this interface and will do their own business. Thus, we won't need to check mobile service type to make different operations
+```kotlin
+class MobilePhone{
+    lateinit var brandName: String
+}
+
+class MobilePhoneUser{
+    fun runMobileDevice(mobileServices: IMobileServices, mobilePhone: MobilePhone){
+        mobileServices.addMobileServiceToPhone(mobilePhone)
+    }
+}
+
+interface IMobileServices{
+    fun addMobileServiceToPhone(mobilePhone: MobilePhone)
+}
+
+class HuaweiMobileServices: IMobileServices{
+    override fun addMobileServiceToPhone(mobilePhone: MobilePhone){ println("Huawei Mobile Services") }
+}
+
+class GoogleMobileServices: IMobileServices{
+    override fun addMobileServiceToPhone(mobilePhone: MobilePhone){ println("Google Mobile Services") }
+}
+```
+
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
