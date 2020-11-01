@@ -15,6 +15,7 @@ In this repository, I will explain design patterns, object oriented programming 
    - [Single Responsibility Principle](#single-responsibility-principle)
    - [Open-Closed Principle](#open-closed-principle)
    - [Liskov Substitution Principle](#liskov-substitution-principle)
+   - [Interface Segregation Principle](#interface-segregation-principle)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -360,6 +361,84 @@ class Bicycle: Vehicle{
     }
 }
 ```
+
+### Interface Segregation Principle
+In object-oriented programming, interfaces provide layers of abstraction that simplify code and create barriers which are preventing coupling to dependencies. Classes shouldn't implement interfaces which they are not going to use.<br/>
+Programming languages support multiple interface implementation. So, if there are some methods which won't be implemented by some type of classes, we should separate these interface to different interfaces.<br/><br/>
+
+So let's think that we have an animal interface. And this interface will have methods about behaviors which animals can do. Thus, animals can use this interface to behave.
+```kotlin
+interface Animal{
+    fun eat()
+    fun sleep()
+    fun fly()
+}
+
+class Cat: Animal{
+    override fun eat() {
+        println("Cat is eating fish")
+    }
+
+    override fun sleep() {
+        println("Cat is sleeping on its owner's bed")
+    }
+
+    override fun fly() {
+        TODO("Not yet implemented") // Cats can't fly
+    }
+}
+
+class Bird: Animal{
+    override fun eat() {
+        println("Bird is eating forage")
+    }
+
+    override fun sleep() {
+        println("Bird is sleeping in the nest")
+    }
+
+    override fun fly() {
+        println("Bird is flying so high")
+    }
+}
+```
+As you see, some animals can't fly such as cat. When we will create classes for these animals, it will be unnecessary to implement fly method.<br/>
+To fix that issue, we will create new interface called as FlyingAnimal. We will remove fly method from Animal interface and we will add it to out new interface
+```kotlin
+interface Animal{
+    fun eat()
+    fun sleep()
+}
+
+interface FlyingAnimal{
+    fun fly()
+}
+
+class Cat: Animal{
+    override fun eat() {
+        println("Cat is eating fish")
+    }
+
+    override fun sleep() {
+        println("Cat is sleeping on its owner's bed")
+    }
+}
+
+class Bird: Animal, FlyingAnimal{
+    override fun eat() {
+        println("Bird is eating forage")
+    }
+
+    override fun sleep() {
+        println("Bird is sleeping in the nest")
+    }
+
+    override fun fly() {
+        println("Bird is flying so high")
+    }
+}
+```
+<b>Note: </b>If we would like to we can implement Animal interface in FlyingAnimal interface. So, we won't need to implement two interfaces for classes which animals can fly such as Bird.
 
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
