@@ -16,6 +16,7 @@ In this repository, I will explain design patterns, object oriented programming 
    - [Open-Closed Principle](#open-closed-principle)
    - [Liskov Substitution Principle](#liskov-substitution-principle)
    - [Interface Segregation Principle](#interface-segregation-principle)
+   - [Dependency Inversion Principle](#dependency-inversion-principle)
 
 ## Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -439,6 +440,65 @@ class Bird: Animal, FlyingAnimal{
 }
 ```
 <b>Note: </b>If we would like to we can implement Animal interface in FlyingAnimal interface. So, we won't need to implement two interfaces for classes which animals can fly such as Bird.
+
+### Dependency Inversion Principle
+Dependency Inversion Principle tells us about the coupling between the different classes or modules.<br/>
+Higher level classes should not be dependent to lower level classes. Both should be dependent to abstractions. It is based on removing the dependency with the interface.<br/>
+The dependence of a class or method on other classes that use it should be minimized. Changes made in the child classes should not affect parent classes.<br/><br/>
+Let's think that we need to develop a mobile application for both Android and iOS. To do that, we need an Android Developer and an iOS Developer. These classes will have a method to develop a mobile application by using their own platform and programming language.
+```kotlin
+class AndroidDeveloper{
+    fun developMobileApp(){
+        println("Developing Android Application by using Kotlin")
+    }
+}
+
+class IosDeveloper{
+    fun developMobileApp(){
+        println("Developing iOS Application by using Swift")
+    }
+}
+
+fun main(){
+    val androidDeveloper = AndroidDeveloper()
+    val iosDeveloper = IosDeveloper()
+
+    androidDeveloper.developMobileApp()
+    iosDeveloper.developMobileApp()
+}
+```
+To fix the problem in here, we can create an interface called as MobileDeveloper. AndroidDeveloper and IosDeveloper classes with implement this interface.<br/>
+If we want to store some different datas for each developer type, we can use this principle. Also, maybe we want to separate mobile services for Android Developers. To do that, we can create different methods for Android Developer but developing mobile application will be same for both Android and iOS developers. So, we should have an interface for same operations.
+```kotlin
+interface MobileDeveloper{
+    fun developMobileApp()
+}
+
+class AndroidDeveloper(var mobileService: MobileServices): MobileDeveloper{
+    override fun developMobileApp(){
+        println("Developing Android Application by using Kotlin. " +
+                "Application will work with ${mobileService.serviceName}")
+    }
+    enum class MobileServices(var serviceName: String){
+        HMS("Huawei Mobile Services"),
+        GMS("Google Mobile Services"),
+        BOTH("Huawei Mobile Services and Google Mobile Services")
+    }
+}
+
+class IosDeveloper: MobileDeveloper{
+    override fun developMobileApp(){
+        println("Developing iOS Application by using Swift")
+    }
+}
+
+fun main(){
+    val developers = arrayListOf(AndroidDeveloper(AndroidDeveloper.MobileServices.HMS), IosDeveloper())
+    developers.forEach { developer ->
+        developer.developMobileApp()
+    }
+}
+```
 
 ## License
 Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
