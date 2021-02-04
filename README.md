@@ -1,10 +1,8 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 # Design-Patterns-in-Kotlin
-Design patterns can speed up our software development process because they provide tested, proven development paradigms.<br/><br/>
-Design patterns are solutions to common problems that software developers encounter during software development process. These solutions have been achieved through trial and error by numerous software developers over a long period of time. Later, they gave names to these solutions which they found for certain problems.<br/><br/>
-In this repository, I will explain design patterns, object oriented programming and SOLID principles with examples.
+This repository is my knowledge sharing repository which is about Design Patterns, Object Oriented Programming concepts and SOLID principles. I have shared my knowledge about these subjects briefly and I have given simple examples for each subject
 
-## Contents
+# Contents
 1. [Object Oriented Programming](#object-oriented-programming)
    - [Object Oriented Programming Concepts](#object-oriented-programming-concepts)
      - [Encapsulation](#encapsulation)
@@ -17,17 +15,20 @@ In this repository, I will explain design patterns, object oriented programming 
    - [Liskov Substitution Principle](#liskov-substitution-principle)
    - [Interface Segregation Principle](#interface-segregation-principle)
    - [Dependency Inversion Principle](#dependency-inversion-principle)
+3. [Design Patterns](#design-patterns)
+   - [Creational Design Patterns](#creational-design-patterns)
+     - [Singleton Pattern](#singleton-pattern)
 
-## Object Oriented Programming
+# Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
 Software developers are creating many different classes for that.<br/>
 Classes are user defined data types which have their own attributes and methods. These methods can determine the logical operations of the class. And attributes can hold data which a class can have.<br/>
 We can create as many instances from a class as we want. These instances are called as object.
 
-### Object Oriented Programming Concepts
+## Object Oriented Programming Concepts
 Object-oriented programming has four basic concepts. These concepts might seem a little bit complex to you, if you are not familiar with them before. But understanding the how these concepts are working may help you so much for your software development career.
 
-#### Encapsulation
+### Encapsulation
 Encapsulation means the attributes of a class is hidden from any other class and can be accessed only through any member methods of own class in which attributes are declared.<br/>
 To do that, we can define attributes as private. Then, we can add getter-setter methods  as public for an attribute.<br/>
 There are 3 visibility types for variables and methods. These are:
@@ -67,7 +68,7 @@ public class EncapsulationCompiled {
 }
 ```
 
-#### Abstraction
+### Abstraction
 Abstraction is a process of hiding the internal details of a class from the outer world.<br/>
 We can define abstract methods or abstract classes. If one class has one abstract method at least, that means that class can be abstract class. Abstract classes are generally used to gather objects with common properties under one roof.
 ```kotlin
@@ -87,7 +88,7 @@ interface InterfaceExample {
 }
 ```
 
-#### Inheritance
+### Inheritance
 Inheritance means that one class acquires the attributes and methods of another class. That means, we can create new classes over existing classes.<br/>
 Main purpose of inheritance is to provide the reusability of code. So, a class has to write only the unique attributes and methods. Rest of the common attributes and methods can be extended from the another class.<br/>
 Here, two new terms come up. Parent class and child class.
@@ -143,7 +144,7 @@ Attribute in Parent Class
 Attribute in Child Class
 ```
 
-#### Polymorphism
+### Polymorphism
 With the help of polymorphism we can perform a single action in different ways. To do that, we need to define one interface, class or abstract class and we will have multiple implementations.<br/>
 I will give a brief example. You will see that, with the help of polymorphism, a method can perform different operations based on the object that it is acting upon.<br/><br/>
 First, we will have parent class called as 'PolymorphismBaseClass'
@@ -176,11 +177,11 @@ class PolymorphismGoogleClass: PolymorphismBaseClass() {
 }
 ```
 
-## SOLID Principles
+# SOLID Principles
 In object-oriented computer programming, SOLID is design principles intended to make software more understandable, flexible and maintainable.<br/>
 SOLID helps us to write sustainable code while developing software. This means, when software requirements have changed or we want to make additions to existing software, the system won't resist this. We will add new requiremements and functions easily. In addition to these, there are reasons such as maintenance and being easy to understand.
 
-### Single Responsibility Principle
+## Single Responsibility Principle
 Single-responsibility principle means that every module, class or method in a computer program should have responsibility over a single part of that program's functionality.<br/>
 We shouldn't have objects which know too much and have unnecessary behavior. So, a class will do only one job. Thus, this class should have only one reason to change.<br/><br/>
 For example, let's think that we have class called as user which holds the information about user. Then we will add sign in and sign out methods for this user to manage authentication operations.
@@ -220,7 +221,7 @@ class AuthenticationService(){
 }
 ```
 
-### Open-Closed Principle
+## Open-Closed Principle
 There are two different important meanings for this principle.
 - <b>Open:</b> Means that we can add new features to class. When there are some changes on our dependencies, we should be able to add new features to our class easily
 - <b>Closed:</b> Means that base features of class shouldn't be able to change
@@ -267,7 +268,7 @@ class GoogleMobileServices: IMobileServices{
 }
 ```
 
-### Liskov Substitution Principle
+## Liskov Substitution Principle
 We should be able to use subclasses instead of the parent classes which class they have extended, without the need to make any changes in our code. In simple words, child class must be substitutable for the parent class.<br/>
 Since child classes extended from the parent classes, they inherit their behavior. If child classes can not perform the behaviors belonging to the parent classes, probably, we won't write any code in the method that does the behavior or we will throw an error when objects want to use it. But these actions cause code pollution and unnecessary code crowds.<br/><br/>
 Let's think that we have an abstract class called as Vehicle. This abstract class have some methods about engine situation and moving forward/back. When we want to create child classes such as Car, Truck and etc. to extend Vehicle abstract class will be fine for us.
@@ -363,7 +364,7 @@ class Bicycle: Vehicle{
 }
 ```
 
-### Interface Segregation Principle
+## Interface Segregation Principle
 In object-oriented programming, interfaces provide layers of abstraction that simplify code and create barriers which are preventing coupling to dependencies. Classes shouldn't implement interfaces which they are not going to use.<br/>
 Programming languages support multiple interface implementation. So, if there are some methods which won't be implemented by some type of classes, we should separate these interface to different interfaces.<br/><br/>
 
@@ -441,7 +442,7 @@ class Bird: Animal, FlyingAnimal{
 ```
 <b>Note: </b>If we would like to we can implement Animal interface in FlyingAnimal interface. So, we won't need to implement two interfaces for classes which animals can fly such as Bird.
 
-### Dependency Inversion Principle
+## Dependency Inversion Principle
 Dependency Inversion Principle tells us about the coupling between the different classes or modules.<br/>
 Higher level classes should not be dependent to lower level classes. Both should be dependent to abstractions. It is based on removing the dependency with the interface.<br/>
 The dependence of a class or method on other classes that use it should be minimized. Changes made in the child classes should not affect parent classes.<br/><br/>
@@ -500,5 +501,77 @@ fun main(){
 }
 ```
 
-## License
-Design-Patterns-in-Kotlin is published under the terms of the Apache License(Version 2.0). See <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">license</a> file for details.
+# Design Patterns
+Design patterns can speed up our software development process because they provide tested, proven development paradigms.<br/>
+Design patterns are solutions to common problems that software developers encounter during software development process. These solutions have been achieved through trial and error by numerous software developers over a long period of time. Then, they gave names to these solutions which they found for certain problems.<br/><br/>
+Design patterns are categorized in 3 groups. These are; Creational Design Patterns, Structural Design Patterns and Behavioral Design Patterns<br/>
+I will explain each design patterns of these categories and give examples for them to improve the knowledge with practice.
+
+## Creational Design Patterns
+Creational design patterns are dealing with object creation situation and trying to create objects which will be suitable to situation. Creating objects can cause the some complexity. Creational design patterns solve this problem by managing the object creation situation.
+
+### Singleton Pattern
+Singleton is one of the creational design pattern that lets us to create one instance of the class and provide a global access point to this instance.<br/>
+For singleton, we should define all constructors as private. Then, we should define one static instance of the class which will hold existing instance or will create new one.<br/><br/>
+Applying singleton pattern is so easy in Kotlin. But first, I want to give an example in Java to make it more understandable.
+```java
+public class SingletonMainClass {
+    public static void main(String[] args) {
+        SingletonPattern singletonPattern = SingletonPattern.getInstance();
+        singletonPattern.writeHelloWorld();
+    }
+}
+class SingletonPattern {
+    private static SingletonPattern singletonPattern;
+    private static Object synchronizedObject = new Object();
+
+    private SingletonPattern() { }
+
+    public static SingletonPattern getInstance() {
+        if (singletonPattern == null) {
+            synchronized (SingletonPattern.class) {
+                if (singletonPattern == null) {
+                    singletonPattern = new SingletonPattern();
+                }
+            }
+        }
+        return singletonPattern;
+    }
+
+    public void writeHelloWorld() {
+        System.out.println("Hello world!");
+    }
+}
+```
+As you see above, there are so much works when we want to implement Singleton Pattern design pattern to our classes that we need to do.<br/>
+Unlike Java, Kotlin provides so easy feature for this. This feature is called as object. When we define classes as object, this object will be singleton automatically.
+```kotlin
+fun main() {
+    SingletonPattern.writeHelloWorld()
+}
+
+object SingletonPattern {
+    fun writeHelloWorld() {
+        println("Hello World!")
+    }
+}
+```
+
+# License
+```
+   Copyright 2021 Berk Berber
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+```
+See more details: <a href="https://github.com/berkberberr/Design-Patterns-in-Kotlin/blob/main/LICENSE">LICENSE</a>
