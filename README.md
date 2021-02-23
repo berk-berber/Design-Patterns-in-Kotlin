@@ -18,6 +18,7 @@ This repository is my knowledge sharing repository which is about Design Pattern
 3. [Design Patterns](#design-patterns)
    - [Creational Design Patterns](#creational-design-patterns)
      - [Singleton Pattern](#singleton-pattern)
+     - [Factory Method Pattern](#factory-method-pattern)
 
 # Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -555,6 +556,91 @@ object SingletonPattern {
         println("Hello World!")
     }
 }
+```
+
+### Factory Method Pattern
+Factory Method is one of the creational design pattern which provides us an interface to create objects. It allows subclasses to change the type of objects that will be created by the interface which we have created before.<br/>
+Briefly, we use Factory Method Pattern when we don't know which subclasses we will need to create in the future.<br/>
+
+Let me give you an example. While developing Android applications, just a few years ago, we have been using only Google Mobile Services. Then, Huawei have been created their own mobile services which has been called as Huawei Mobile Services.<br/>
+This situation has brought a new challenge for mobile developers which is about managing two different mobile services while developing Android applications.<br/>
+
+Let's think about an idea that mobile services will show the map on screen and will authenticate the user. First, we need to create an interface called as MobileService.
+```kotlin
+interface MobileService {
+    fun authenticateUser()
+    fun showMap()
+}
+```
+Now, we need to create real mobile services which will implement our MobileService interface. For that, I have created two class which are called as HuaweiMobileServices and GoogleMobileServices.<br/>
+These mobile services are doing similar operations but in different ways. For example, Huawei authenticate users with Huawei ID and Google authenticate users with Gmail. And Huawei is using Petal Maps for navigation and Google is using Google Maps. 
+```kotlin
+class HuaweiMobileServices: MobileService {
+    override fun authenticateUser() {
+        println("User has been authenticated with Huawei ID")
+    }
+
+    override fun showMap() {
+        println("Petal Maps has been started for navigation")
+    }
+}
+
+class GoogleMobileServices: MobileService {
+    override fun authenticateUser() {
+        println("User has been authenticated with Gmail")
+    }
+
+    override fun showMap() {
+        println("Google Maps has been started for navigation")
+    }
+}
+```
+Now, all we need to do is creating Factory for these mobile service classes which we have implemented from MobileService interface.<br/>
+We can send any different data to separate different type of mobile services. It can be like String, Integer or some Enum values.<br/>
+
+I will explain by doing with Enum.
+```kotlin
+class MobileServiceFactory(){
+    fun getMobileService(mobileServiceType: MobileServiceType): MobileService {
+        return when(mobileServiceType) {
+            MobileServiceType.HUAWEI -> HuaweiMobileServices()
+            MobileServiceType.GOOGLE -> GoogleMobileServices()
+        }
+    }
+}
+
+enum class MobileServiceType(){
+    HUAWEI,
+    GOOGLE
+}
+```
+Now, let's test it on main method and see the output to understand what we did above:
+```kotlin
+fun main() {
+    var mobileService = MobileServiceFactory()
+    val hms = mobileService.getMobileService(MobileServiceType.HUAWEI)
+    val gms = mobileService.getMobileService(MobileServiceType.GOOGLE)
+
+    println("Huawei:")
+    hms.apply {
+        authenticateUser()
+        showMap()
+    }
+    println("Google:")
+    gms.apply {
+        authenticateUser()
+        showMap()
+    }
+}
+```
+<b>Output</b>
+```
+Huawei:
+User has been authenticated with Huawei ID
+Petal Maps has been started for navigation
+Google:
+User has been authenticated with Gmail
+Google Maps has been started for navigation
 ```
 
 # License
