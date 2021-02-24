@@ -19,6 +19,7 @@ This repository is my knowledge sharing repository which is about Design Pattern
    - [Creational Design Patterns](#creational-design-patterns)
      - [Singleton Pattern](#singleton-pattern)
      - [Factory Method Pattern](#factory-method-pattern)
+     - [Abstract Factory Pattern](#abstract-factory-pattern)
 
 # Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -641,6 +642,117 @@ Petal Maps has been started for navigation
 Google:
 User has been authenticated with Gmail
 Google Maps has been started for navigation
+```
+
+### Abstract Factory Pattern
+Abstract Factory Pattern is another creational pattern which is similar to Factory Method Pattern. The main difference is, Abstract Factory Pattern creates factories which will create other factories.<br/>
+
+Abstract Factory Pattern lets us to create objects which are families with each other. The main idea in here is, Abstract Factory Pattern don't want our objects to be depend on the concrete classes. Because we might not know what will happen with these classes in the future and depends on the future requirements of the project we might want to allow extensibility.<br/>
+
+Let's imagine that we will create UI classes for website and these UI classes will be different for desktop users and mobile device users. To do that, we will have different products for different UI objects such as Button, ImageView, TextView, EditText, Dialog and etc.<br/>
+And also, these UI objects will be different for desktop and mobile users. Abstract Factory can help us in this scenario.<br/>
+
+For example, let's think that dialog and imageview will be different on desktop and mobile device.<br/>
+First, we will define a dialog interface and each device type will implement this interface.
+```kotlin
+interface Dialog {
+    fun showPopupDialog()
+}
+class DesktopDialog: Dialog {
+    override fun showPopupDialog() {
+        println("Desktop dialog will be shown")
+    }
+}
+class MobileDeviceDialog: Dialog {
+    override fun showPopupDialog() {
+        println("Mobile device dialog will be shown")
+    }
+}
+```
+Then, we will create an interface for our second UI object which is ImageView.<br/>
+Let's make some difference in here. For example, users will be able to see image bigger when they click to image on desktop. But, users will not be able to see image bigger on mobile device and nothing will happen when users click on image.
+```kotlin
+interface ImageView {
+    fun showImage()
+}
+class DesktopImageView: ImageView {
+    override fun showImage() {
+        println("Image will be shown on desktop and will be clickable.")
+    }
+}
+class MobileDeviceImageView: ImageView {
+    override fun showImage() {
+        println("Image will be shown on mobile device and nothing will happen when user click on image.")
+    }
+}
+```
+Now, all we need to do is focusing on creating factories.
+```kotlin
+interface UIFactory{
+    fun createDialog(): Dialog
+    fun createImageView(): ImageView
+}
+```
+Then, we need to create a factory class for each device type and these factory classes will implement the main UIFactory class for creating UI objects.
+```kotlin
+class DesktopUIFactory: UIFactory {
+    override fun createDialog(): Dialog = DesktopDialog()
+    override fun createImageView(): ImageView = DesktopImageView()
+}
+class MobileDeviceUIFactory: UIFactory {
+    override fun createDialog(): Dialog = MobileDeviceDialog()
+    override fun createImageView(): ImageView = MobileDeviceImageView()
+}
+```
+Now, we will create a base class called as Device. And this device will be created depends on the device type such as desktop or mobile device.
+```kotlin
+class Device(uiFactory: UIFactory) {
+    var dialog: Dialog = uiFactory.createDialog()
+    var imageView: ImageView = uiFactory.createImageView()
+}
+```
+For now, we need to create an enum class to getting device type easily.
+```kotlin
+enum class DeviceType{
+    MOBILE,
+    DESKTOP
+}
+```
+Now, we will test all things which we did. First test will be for mobile device.
+```kotlin
+fun main() {
+    lateinit var uiFactory: UIFactory
+
+    var deviceType = DeviceType.MOBILE
+    uiFactory = when (deviceType) {
+        DeviceType.MOBILE -> {
+            MobileDeviceUIFactory()
+        }
+        DeviceType.DESKTOP -> {
+            DesktopUIFactory()
+        }
+    }
+    var device: Device = Device(uiFactory)
+
+    device.apply {
+        dialog.showPopupDialog()
+        imageView.showImage()
+    }
+}
+```
+<b>Output</b>
+```
+Mobile device dialog will be shown
+Image will be shown on mobile device and nothing will happen when user click on image.
+```
+Now, just change the device type as Desktop on main method.
+```kotlin
+var deviceType = DeviceType.DESKTOP
+```
+<b>Output</b>
+```
+Desktop dialog will be shown
+Image will be shown on desktop and will be clickable.
 ```
 
 # License
