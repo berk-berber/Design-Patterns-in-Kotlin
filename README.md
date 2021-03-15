@@ -20,6 +20,7 @@ This repository is my knowledge sharing repository which is about Design Pattern
      - [Singleton Pattern](#singleton-pattern)
      - [Factory Method Pattern](#factory-method-pattern)
      - [Abstract Factory Pattern](#abstract-factory-pattern)
+     - [Builder Pattern](#builder-pattern)
 
 # Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -754,6 +755,65 @@ var deviceType = DeviceType.DESKTOP
 Desktop dialog will be shown
 Image will be shown on desktop and will be clickable.
 ```
+
+### Builder Pattern
+Builder Pattern is a creational design pattern which allows us to construct complex objects. While creating objects with Builder Pattern, we can create different types and representations of objects which are using the same builder code.<br/><br/>
+With the Builder Pattern, we do not get all data which we will need in the class on constructor method. Instead of getting data on constructor method, we are getting all inputs step by step in separated setter methods with inner class which is called as Builder.<br/><br/>
+Let's examine Builder Pattern with a simple example.<br/>
+Let's imagine that we want to create a dialog to show on screen. This dialog will have title, icon, message, positive button and negative button. Builder pattern is good pattern to develop a class for this problem.<br/><br/>
+First of all, we are defining private constructor because we don't want to set values directly with Dialog class.<br/>
+Then we define a Builder class to build our object. Fields' setter methods will private. Thus, we will only set them with the methods which we have created.<br/>
+With the build method, we are creating Dialog class according to the values which we have defined.
+```kotlin
+class Dialog private constructor(
+    private val title: String?,
+    private val message: String?,
+    private val icon: String?,
+    private val positiveButtonText: String?,
+    private val negativeButtonText: String?)
+{
+    fun showDialog() {
+        println("Title: $title\n" +
+                "Message: $message\n" +
+                "Icon: $icon\n" +
+                "Positive Button Text: $positiveButtonText\n" +
+                "Negative Button Text: $negativeButtonText")
+    }
+
+    class Builder {
+        var title: String = ""
+            private set
+        var message: String = ""
+            private set
+        var icon: String = ""
+            private set
+        var positiveButtonText: String = ""
+            private set
+        var negativeButtonText: String = ""
+            private set
+
+        fun setTitle(title: String) = apply { this.title = title }
+        fun setMessage(message: String) = apply { this.message = message }
+        fun setIcon(icon: String) = apply { this.icon = icon }
+        fun setPositiveButtonText(positiveButtonText: String) = apply { this.positiveButtonText = positiveButtonText }
+        fun setNegativeButtonText(negativeButtonText: String) = apply { this.negativeButtonText = negativeButtonText }
+
+        fun build() = Dialog(title, message, icon, positiveButtonText, negativeButtonText)
+    }
+}
+
+fun main() {
+    val dialog = Dialog.Builder()
+        .setTitle("Exit")
+        .setMessage("Are you sure that you want to leave the app?")
+        .setIcon("Exit image")
+        .setPositiveButtonText("Yes")
+        .setNegativeButtonText("No")
+        .build()
+    dialog.showDialog()
+}
+```
+
 
 # License
 ```
