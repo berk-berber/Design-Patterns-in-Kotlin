@@ -21,6 +21,7 @@ This repository is my knowledge sharing repository which is about Design Pattern
      - [Factory Method Pattern](#factory-method-pattern)
      - [Abstract Factory Pattern](#abstract-factory-pattern)
      - [Builder Pattern](#builder-pattern)
+     - [Prototype Pattern](#prototype-pattern)
 
 # Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -814,6 +815,84 @@ fun main() {
 }
 ```
 
+### Prototype Pattern
+Prototype Patterns is a creational design pattern which allows us to create copies of existing objects. We can use prototype pattern when we want to create copies of existing objects and don't want them to be dependent on their classes.<br/>
+<b>Note:</b> We can even copy private variables or methods while using prototype pattern because we are cloning objects.<br/><br/>
+When object has so much parameters on the constructor method, it can cost too much while creating new objects from the existing class. With the help of Prototype Pattern, we can copy the existing objects without using "new" keyword.<br/>
+That means, Prototype Pattern is very useful when we want to create similar objects from existing class.<br/>
+It can help us to save so much time while creating copied objects of existing classes.<br/><br/>
+Let's examine Prototype Pattern with a simple example.<br/>
+Using Prototype Pattern in Kotlin is so easy. I will give you an example about mobile phones.<br/><br/>
+Let's imagine that we have a data class which is called as MobilePhone. This data class will have 5 fields. These fields are phone brand as String, model name as String, operating system name as String and size of RAM as Int.<br/>
+```kotlin
+data class MobilePhone(
+    val phoneBrand: String,
+    val modelName: String,
+    val operatingSystemName: String,
+    val sizeOfRAM: Int
+)
+```
+Now, we will add a function to data class which is called as printPhoneDetails. This function will print the features of the phone.
+```kotlin
+data class MobilePhone(
+    val phoneBrand: String,
+    val modelName: String,
+    val operatingSystemName: String,
+    val sizeOfRAM: Int
+) {
+    fun printPhoneDetails() {
+        println("$phoneBrand $modelName has $sizeOfRAM GB RAM and runs with $operatingSystemName operating system")
+    }
+}
+```
+On the above, we have very simple data class to describe Prototype Pattern.<br/>
+First, we will create one object which is P40 Lite. Then, we will use printPhoneDetails function to print phone details and, we will see the output.<br/>
+```kotlin
+fun main() {
+    val p40Lite = MobilePhone(
+        "Huawei",
+        "P40 Lite",
+        "Android",
+        6,
+
+    )
+    p40Lite.printPhoneDetails()
+}
+```
+<b>Output</b>
+```
+Huawei P40 Lite has 6 GB RAM and runs with Android operating system
+```
+In Kotlin, we don't need to clone objects by hand if they are model as data class. This makes everything so easy in Kotlin to copy objects of data classes.<br/><br/>
+Let's think that Huawei will introduce a new mobile phone which is P50 Pro. For this phone, model name will be changed. Size of RAM will increase and operating system will be changed to Harmony OS which is the new operating system developing by Huawei.<br/>
+If we want other functions to stay same for all mobile phones, we can just copy and change variables of the class. Other functions can be like buyThePhone, addToShoppingCart and many more according to project which we are developing. In this example, I just developed one function called as printPhoneDetails to print details of the phone.<br/><br/>
+You may ask why we just don't create new object. We can have more fields for the class such as camera details, processor, size of the phone, screen details. In this type of object, many fields can be same for many different mobile phone. If we create same fields as same again and again, this can cost too much to develop all these objects, especially when we have hundreds of phones.<br/>
+In this example, phoneBrand will be same for both of the objects.
+```kotlin
+fun main() {
+    val p40Lite = MobilePhone(
+        "Huawei",
+        "P40 Lite",
+        "Android",
+        6,
+
+    )
+    p40Lite.printPhoneDetails()
+
+    val p50Pro = p40Lite.copy(
+        modelName = "P50 Pro",
+        operatingSystemName = "Harmony",
+        sizeOfRAM = 8
+    )
+    p50Pro.printPhoneDetails()
+}
+```
+<b>Output</b>
+```
+Huawei P40 Lite has 6 GB RAM and runs with Android operating system
+Huawei P50 Pro has 8 GB RAM and runs with Harmony operating system
+```
+As we see, we have copied P50 Pro from P40 Lite and just changed the fields which need to be changed. When fields should be same, we don't need to define them as we do in constructor methods.
 
 # License
 ```
