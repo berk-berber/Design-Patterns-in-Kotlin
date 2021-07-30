@@ -22,6 +22,7 @@ This repository is my knowledge sharing repository which is about Design Pattern
      - [Abstract Factory Pattern](#abstract-factory-pattern)
      - [Builder Pattern](#builder-pattern)
      - [Prototype Pattern](#prototype-pattern)
+   - [Structural Design Patterns](#structural-design-patterns)
 
 # Object Oriented Programming
 Object oriented programming(OOP) is a programming paradigm which depends on classes and objects. It helps software developers to structure their codes and make them reusable pieces.<br/><br/>
@@ -893,6 +894,10 @@ Huawei P40 Lite has 6 GB RAM and runs with Android operating system
 Huawei P50 Pro has 8 GB RAM and runs with Harmony operating system
 ```
 As we see, we have copied P50 Pro from P40 Lite and just changed the fields which need to be changed. When fields should be same, we don't need to define them as we do in constructor methods.
+
+## Structural Design Patterns
+Structural design patterns are dealing about how classes and objects will be in a relationship with each other in structurally. Structural design patterns simplify the design when we are going to have huge object structures in our project. It helps us to create objects and classes without repeating themselves.
+
 
 # License
 ```
